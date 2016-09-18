@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <link href="/home/alvaro/kaggle/house_prediction/data/report/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Report</title>
+</head>
+<body>
+    <h1>Report on the variables of the Price Housing dataset</h1>
+    {% for name, info in features.items() %}
+    <div class="row">
+      <div class="col-xs-6">
+        <h3>{{ name }}</h3>
+        <p>Description: {{ info.description }}</p>
+        <p>Variable type: {{ info.type }}</p>
+        {% if info.type == "categorical" %}
+          <ul>
+          {% for value in info["values"] %}
+            <li>{{ value.code }}: {{ value.name }}</li> 
+          {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+      <div class="col-xs-6">
+        <img width=100% src="{{ info.image }}"></img>
+      </div>
+    </div>
+    {% endfor %}
+</body>
+</html>
