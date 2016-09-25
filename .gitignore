@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# project
+data/raw/
+playground/
+data/report/*
+data/report/images/
