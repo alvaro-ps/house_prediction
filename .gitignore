@@ -92,5 +92,5 @@ ENV/
 # project
 data/raw/
 playground/
-data/report/*
-data/report/images/
+report/*
+report/images/
