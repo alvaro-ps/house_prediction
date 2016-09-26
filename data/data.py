@@ -97,3 +97,12 @@ class Data():
     Return a data frame with the test set
     """
     return self.__getDataset('trainset', self.testPath)
+
+  def xytrain(self, yname='SalePrice'):
+    """
+    Returns a tuple (Xtrain, ytrain)
+    """
+    train = self.train
+    y = train[yname]
+    X = train.drop(yname, axis="columns")
+    return X, y
