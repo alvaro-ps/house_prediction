@@ -25,9 +25,10 @@ def createReport(features, filename):
   
 
 if __name__ == "__main__":
-  datapath = "/home/alvaro/kaggle/house_prediction/data/"
+  basepath = "/home/alvaro/kaggle/house_prediction/"
+  datapath = basepath + "data/"
   rawdatapath = datapath + "raw/"
-  reportpath = datapath + "report/"
+  reportpath = basepath + "report/"
   imagespath = reportpath + "images/"
   templatepath = reportpath + "templates/report.html"
   outputpath = reportpath + "report"
