@@ -6,7 +6,16 @@
     <title>Report</title>
 </head>
 <body>
-    <h1>Report on the variables of the Price Housing dataset</h1>
+    <h1>Price Housing dataset</h1>
+    <p>This report gives an overview on the California price housing data set, specifically over the training set. Its goal is to ease the feature engineering and modelling.</p>
+    <h2>General information</h2>
+    <p>This training set consists of {{ generalInfo.nsamples }} samples and {{ generalInfo.nfeatures }} features. The number of categorical features is {{ generalInfo.ncatfeatures }} and the number of numerical features is {{ generalInfo.nnumfeatures }}.
+    </p>
+    <h2>Features information</h2>
+    <p>This section shows information regarding each feature: Name, description and variable time.
+       If the feature is categorical it lists categories and description, and also shows the feature distribution per category.
+       In case of a numerical feature the histogram is shown.
+    </p>
     {% for name, info in features.items() %}
     <div class="row">
       <div class="col-xs-6">

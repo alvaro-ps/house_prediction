@@ -1,28 +1,43 @@
 import os
 
+import numpy as np
 import matplotlib
 import matplotlib.pyplot as plt
 matplotlib.style.use('ggplot')
 from jinja2 import Template
 from weasyprint import HTML
 
-from data import Data, getFeaturesInfo
+from data.data import Data, getFeaturesInfo
 
-
-def createReport(features, filename):
+def createReport(features, generalInfo, correlationFilename, filename):
   """
   """
   with open(templatepath) as f:
     template = Template(f.read())
 
-  html = template.render(features=features)
+  html = template.render(features=features,
+                         generalInfo=generalInfo,
+                         correlationFilename=correlationFilename)
   with open(filename + ".html", 'w') as f:
     f.write(html)
 
   HTML(string=html,
        base_url="").write_pdf(filename + ".pdf")
-
   
+def correlationHeatMap(df, filename):
+  """
+  Given a data frame, plots the correlation map for the
+  numerical features
+  """
+  c = df.corr()
+  fig = plt.figure()
+  plt.pcolormesh(c)
+  plt.yticks(np.arange(0.5, len(c.index), 1), c.index)
+  plt.xticks(np.arange(0.5, len(c.columns), 1), c.columns, rotation=90)
+  plt.tight_layout()
+  plt.colorbar()
+  fig.savefig(filename)
+  plt.close(fig)
 
 if __name__ == "__main__":
   basepath = "/home/alvaro/kaggle/house_prediction/"
@@ -75,4 +90,13 @@ if __name__ == "__main__":
     plt.close(fig)
     features[name]["image"] = filename
 
-  createReport(features, outputpath)
+  correlationFilename = imagespath + "numCorrelations.png"
+  correlationHeatMap(numTrain, correlationFilename)
+
+  generalInfo = {
+    "nsamples": train.shape[0],
+    "nfeatures": train.shape[1],
+    "nnumfeatures": len(numTrain.columns),
+    "ncatfeatures": len(catTrain.columns)
+  }
+  createReport(features, generalInfo, correlationFilename, outputpath)
